@@ -18,6 +18,16 @@ const dbConfig={
         return result;
     }catch(err){
         console.log(err)
-    }
+        throw err; // Rethrow the error to handle it in the route handler
+    }finally {
+        if (connection) {
+          try {
+            // Release the connection after execution
+            await connection.close();
+          } catch (err) {
+            console.error(err);
+          }
+        }
+      }
  }
 module.exports = { query }

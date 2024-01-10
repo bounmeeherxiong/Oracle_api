@@ -28,6 +28,17 @@ exports.Getall_Chart_of_account = async (req, res, next) => {
         console.log(err)
     }
 };
+exports.GetAll_Chart_of_account_all = async (req, res, next) => {
+    try{
+        const all_chart_of_account = await accountsModel.GetAll_Chart_of_account_all()
+        res.status(200).json({
+            statusCode: 200,
+            result: all_chart_of_account,
+        });
+    }catch(err){
+        console.log(err)
+    }
+};
 exports.getAll_account = async (req, res, next) => {
     try{
         const data = await accountsModel.getAll_account()
@@ -40,11 +51,26 @@ exports.getAll_account = async (req, res, next) => {
         console.log(err)
     }
 };
+
 exports.getCountnumber = async (req, res, next) => {
 
     try{
         console.log("dddddd")
         const data = await accountsModel.getCountnumber()
+        console.log("data=",data)
+        res.status(200).json({
+            statusCode: 200,
+            result: data, 
+        });
+    }catch(err){
+        console.log(err)
+    }
+};
+
+exports.chartofaccount = async (req, res, next) => {
+    try{
+        console.log("dddddd")
+        const data = await accountsModel.chartofaccount()
         console.log("data=",data)
         res.status(200).json({
             statusCode: 200,
@@ -103,7 +129,43 @@ exports.GetParents_Id_Show_ChartAaccount_name = async (req, res, next) => {
             message: e.message
         });
     }
+},
+exports.filtersfirst_chart_of_account = async (req, res, next) => {
+    try {
+        const get_values = req.params.get_values;
+        console.log("get_values=",get_values)
+        const data = await accountsModel.filtersfirst_chart_of_account(get_values);
+        res.status(200).json({
+            statusCode: 200,
+            message: "Success",
+            result: data
+        })
+    } catch (e) {
+        res.status(500).json({
+            statusCode: 500,
+            message: e.message
+        });
+    }
 }
+
+exports.filtersecond_chart_of_account = async (req, res, next) => {
+    try {
+        const id = req.params.id;
+        console.log("chart_id=",id)
+        const data = await accountsModel.filtersecond_chart_of_account(id);
+        res.status(200).json({
+            statusCode: 200,
+            message: "Success",
+            result: data
+        })
+    } catch (e) {
+        res.status(500).json({
+            statusCode: 500,
+            message: e.message
+        });
+    }
+}
+
 exports.InsertChartAccount = async (req, res, next) => {
     try{
  
